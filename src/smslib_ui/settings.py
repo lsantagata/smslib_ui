@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'smslib_ui.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'smslib_ui',
+        'USER': 'root',
+        'PASSWORD': 'qawsed.123',
+        'HOST': '192.168.0.76',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
