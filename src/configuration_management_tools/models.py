@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+import datetime
 
 # Create your models here.
 # This is an auto-generated Django model module.
@@ -40,6 +41,7 @@ class SmslibGateways(models.Model):
     enabled = models.IntegerField()
 
     class Meta:
+        verbose_name = 'Gateway'
         managed = False
         db_table = 'smslib_gateways'
 
@@ -85,7 +87,8 @@ class SmslibNumberRoutes(models.Model):
     enabled = models.IntegerField()
     profile = models.CharField(max_length=32)
 
-    class Meta:
+    class Meta: 
+        verbose_name = 'Route'
         managed = False
         db_table = 'smslib_number_routes'
 
@@ -111,3 +114,42 @@ class SmslibOut(models.Model):
     class Meta:
         managed = False
         db_table = 'smslib_out'
+
+      
+class Campaign(models.Model):
+    name = models.CharField(max_length=100,  blank=False, null=False, unique=True)
+    description = models.TextField(default='')
+    is_active = models.BooleanField(default=False)
+    start = models.TimeField(default=datetime.time(8, 00))
+    end = models.TimeField(default=datetime.time(20, 00))
+    
+    def __unicode__(self):
+        return self.name + " - ID:" + str(self.id)
+
+    def __str__(self):
+        return self.name + " - ID:" + str(self.id)
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            try:
+                temp = Campaign.objects.get(is_active=True)
+                if self != temp:
+                    temp.is_active = False
+                    temp.save()
+            except Campaign.DoesNotExist:
+                pass
+        super(Campaign, self).save(*args, **kwargs)
+        
+        class Meta: 
+            verbose_name = 'Campaign'
+        
+class Campaign_data(models.Model):
+    address = models.CharField(max_length=16)
+    text = models.CharField(max_length=1024)
+    campaign_id = models.ForeignKey(Campaign)
+    
+    class Meta: 
+            verbose_name = 'Campaign Data'
+            verbose_name_plural = 'Campaigns Data'
+
+    
