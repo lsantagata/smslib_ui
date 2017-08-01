@@ -40,6 +40,12 @@ class SmslibGateways(models.Model):
     profile = models.CharField(max_length=32)
     enabled = models.IntegerField()
 
+    def __unicode__(self):
+        return self.gateway_id 
+
+    def __str__(self):
+        return self.gateway_id 
+    
     class Meta:
         verbose_name = 'Gateway'
         managed = False
@@ -87,6 +93,12 @@ class SmslibNumberRoutes(models.Model):
     enabled = models.IntegerField()
     profile = models.CharField(max_length=32)
 
+    def __unicode__(self):
+        return self.address_regex + " - GW ID:" + str(self.gateway_id)
+
+    def __str__(self):
+        return self.address_regex + " - GW ID:" + str(self.gateway_id)
+    
     class Meta: 
         verbose_name = 'Route'
         managed = False
