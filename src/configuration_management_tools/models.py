@@ -3,11 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 import datetime
-from wheel.metadata import unique
-from django.db import connection, transaction
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from odf.xforms import Instance
 
 # Create your models here.
 # This is an auto-generated Django model module.
@@ -159,12 +154,9 @@ class Campaign_data(models.Model):
 
    
 
-@receiver(post_save, sender=Campaign)
-def campaign_data_handler(sender,instance, **kwargs):
-    if SmslibOut.objects.filter(parent_id=instance.id).count()==0:
-        cursor = connection.cursor()
-        cursor.execute("insert into smslib_out (parent_id,sender_address,address,text,message_id) select campaign_id_id, '+541150505050',address,text,id from configuration_management_tools_campaign_data where campaign_id_id=" + str(instance.id))
-        
+
+
+ 
         
         
     
