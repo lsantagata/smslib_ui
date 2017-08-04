@@ -15,7 +15,7 @@ def generate_campaign_data(modeladmin, request, queryset):
     for instance in queryset:
         if SmslibOut.objects.filter(parent_id=instance.id).count()==0:
             cursor = connection.cursor()
-            cursor.execute("insert into smslib_out (parent_id,sender_address,address,text,message_id) select campaign_id_id, '+541150505050',address,text,id from configuration_management_tools_campaign_data where campaign_id_id=" + str(instance.id))
+            cursor.execute("insert into smslib_out (parent_id,sender_address,address,text,message_id) select campaign_id_id, '',address,text,id from configuration_management_tools_campaign_data where campaign_id_id=" + str(instance.id))
     generate_campaign_data.short_description = "Generate Campaign Data"
         
 class CampaignDataResource(resources.ModelResource):
