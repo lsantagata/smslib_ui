@@ -25,7 +25,7 @@ SECRET_KEY = 'tg=z*%f5)4xnuqs$@m*4)sz+qcr0(+s(tdjz+gcxy%zm&du&=*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,9 +79,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'smslib_ui',
-        'USER': 'root',
-        'PASSWORD': 'qawsed.123',
-        'HOST': '192.168.0.76',   # Or an IP Address that your DB is hosted on
+        'USER': 'smslibuser',
+        'PASSWORD': 'azsxdc.456',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
